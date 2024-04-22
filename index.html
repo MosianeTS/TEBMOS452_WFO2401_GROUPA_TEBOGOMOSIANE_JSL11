@@ -62,7 +62,11 @@
 
         <div class="container">
             <main class="card-column-main">
+
                 <!-- Task Columns: Display tasks grouped by status (TODO, DOING, DONE). -->
+
+                <!-- TODO Column -->
+
                 <div class="column-div" data-status="todo">
                     <div id="todo-head-div" class="column-head-div">
                         <span class="dot" id="todo-dot"></span>
@@ -71,7 +75,9 @@
                     <!-- Tasks container for TODO -->
                     <div class="tasks-container"></div>
                 </div>
+
                 <!-- DOING Column -->
+
                 <div class="column-div" data-status="doing">
                     <div id="doing-head-div" class="column-head-div">
                         <span class="dot" id="doing-dot"></span>
@@ -80,7 +86,9 @@
                     <!-- Tasks container for DOING -->
                     <div class="tasks-container"></div>
                 </div>
+
                 <!-- DONE Column -->
+
                 <div class="column-div" data-status="done">
                     <div id="done-head-div" class="column-head-div">
                         <span class="dot" id="done-dot"></span>
@@ -89,11 +97,14 @@
                     <!-- Tasks container for DONE -->
                     <div class="tasks-container"></div>
                 </div>
+
             </main>
         </div>
     </div>
 
+
     <!-- New Task Modal: Form for adding a new task. -->
+
     <form class="modal-window" id="new-task-modal-window">
         <h4 class="modal-title">Add New Task</h4>
         <div class="input-div">
@@ -118,7 +129,9 @@
         </div>
     </form>
 
+
     <!-- Edit Task Modal: Form for editing an existing task's details. -->
+
     <div class="edit-task-modal-window">
         <form id="edit-task-form">
             <div class="edit-task-div" id="edit-task-header">

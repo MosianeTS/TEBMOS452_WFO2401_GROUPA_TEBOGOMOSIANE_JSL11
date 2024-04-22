@@ -1,5 +1,5 @@
 // TASK: import helper functions from utils
-import { createNewTask,getTasks, patchTask, putTask, deleteTask } from './utils/taskFunctions.js';
+import { createNewTask, getTasks, patchTask, putTask, deleteTask } from './utils/taskFunctions.js';
 // TASK: import initialData
 import { initialData } from './initialData.js';
 
@@ -19,8 +19,7 @@ function initializeData() {
 }
 
 
-initializeData()
-
+console.log(localStorage.getItem('tasks'))
 
 // TASK: Get elements from the DOM
 const elements = {
@@ -37,7 +36,7 @@ const elements = {
   tasksContainers: document.querySelectorAll('.tasks-container'),
   columnDivs: document.querySelectorAll('.column-div'),
   newTaskModalWindow: document.getElementById('new-task-modal-window'),
-  editTaskModal: document.getElementById('edit-task-modal-window'),
+  editTaskModalWindow: document.querySelector('.edit-task-modal-window'),
   modalWindow: document.querySelector('.modal-window'),
   titleInput: document.getElementById('title-input'),
   descInput: document.getElementById('desc-input'),
@@ -122,6 +121,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       // Listen for a click event on each task and open a modal
       taskElement.addEventListener('click', () => { 
         openEditTaskModal(task);
+        elements.editTaskModalWindow.style.display = 'block';
       });
 
       tasksContainer.appendChild(taskElement);
@@ -220,8 +220,7 @@ function addTask(event) {
   event.preventDefault(); 
 
   //Assign user input to the task object
-    const task = {
-      
+    const task = {      
       title: elements.titleInput.value,
       description: elements.descInput.value,
       status: elements.selectStatus.value, 
@@ -260,22 +259,30 @@ function toggleTheme(show) {
 
  
 function openEditTaskModal(task) {
-  // Set task details in modal inputs
-  document.getElementById('edit-task-title-input').value = task.title
+  // Set task details in modal inputs 
   
+  elements.editTaskTitleInput.value = task.title
+  elements.editTaskDescInput.value = task.description  
 
   // Get button elements from the task modal
   const saveTaskChangesBtn = document.getElementById("save-task-changes-btn")
   const cancelEditBtn = document.getElementById("cancel-edit-btn")
-  const deleteTaskBtn = document.getElementById("delete-task-btn") 
-
+  const deleteTaskBtn = document.getElementById("delete-task-btn")   
 
   // Call saveTaskChanges upon click of Save Changes button
- saveTaskChangesBtn.addEventListener('click', () => putTask())
+
+
+ cancelEditBtn.addEventListener('click', () => elements.editTaskModalWindow.style.display = 'none')
 
   // Delete task using a helper function and close the task modal
-  deleteTaskBtn.addEventListener('click', () =>  deleteTask())
-  
+  deleteTaskBtn.addEventListener('click', () => { 
+       deleteTask(task.id);
+       elements.editTaskModalWindow.style.display = 'none'
+       elements.newTaskModalWindow.style.display = 'none';
+       refreshTasksUI();
+  })
+
+  saveTaskChangesBtn.addEventListener('click', () => {saveTaskChanges(task.id); elements.newTaskModalWindow.style.display = 'none'})
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
@@ -283,23 +290,29 @@ function openEditTaskModal(task) {
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
-
-  
+  let newTitle = elements.editTaskTitleInput.value;
 
   // Create an object with the updated task details
+  const updatedTask = {
+    title: newTitle,
+    description: elements.editTaskDescInput.value, // Use editTaskDescInput instead of descInput
+    status: elements.editSelectStatus.value, // Use editSelectStatus instead of selectStatus
+    board: activeBoard      
+  };
 
-
-  // Update task using a hlper functoin
- 
+  // Update task using a helper function
+  patchTask(taskId, updatedTask);
 
   // Close the modal and refresh the UI to reflect the changes
-
-  refreshTasksUI();
+  elements.editTaskModalWindow.style.display = 'none'; // Close the modal
+  refreshTasksUI(); // Refresh the UI
 }
+
 
 /*************************************************************************************************************************************************/
 
 document.addEventListener('DOMContentLoaded', function() {
+  initializeData()
   init(); // init is called after the DOM is fully loaded
 });
 
