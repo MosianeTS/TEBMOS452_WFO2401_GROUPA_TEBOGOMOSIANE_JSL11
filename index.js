@@ -217,7 +217,7 @@ function toggleModal(show, modal = elements.modalWindow) {
 /*************************************************************************************************************************************************
  * COMPLETE FUNCTION CODE
  * **********************************************************************************************************************************************/
-localStorage.clear()
+
 function addTask(event) {
   event.preventDefault(); 
   if (elements.titleInput.value == ""){      
