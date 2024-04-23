@@ -184,12 +184,14 @@ function setupEventListeners() {
   const cancelAddTaskBtn = document.getElementById('cancel-add-task-btn');
   cancelAddTaskBtn.addEventListener('click', () => {
     toggleModal(false);
+    document.getElementById('error-message').textContent = "";
     elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
   });
 
   // Clicking outside the modal to close it
   elements.filterDiv.addEventListener('click', () => {
     toggleModal(false);
+    document.getElementById('error-message').textContent = "";
     elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
   }); 
 
@@ -215,10 +217,14 @@ function toggleModal(show, modal = elements.modalWindow) {
 /*************************************************************************************************************************************************
  * COMPLETE FUNCTION CODE
  * **********************************************************************************************************************************************/
-
+localStorage.clear()
 function addTask(event) {
   event.preventDefault(); 
-
+  if (elements.titleInput.value == ""){      
+    document.getElementById('error-message').textContent = "Title cannot be empty";
+    document.querySelector('#error-message').style.color = "red"
+    return;
+  }
   //Assign user input to the task object
     const task = {      
       title: elements.titleInput.value,
