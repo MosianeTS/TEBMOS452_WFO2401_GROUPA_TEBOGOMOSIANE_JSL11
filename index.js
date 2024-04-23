@@ -252,11 +252,11 @@ function toggleSidebar(show) {
  // Theme switch event listener
  elements.themeSwitch.addEventListener('change', toggleTheme);
 
-function toggleTheme(show) {
- 
+ function toggleTheme(show) {
+  const isLightTheme = elements.themeSwitch.checked;
+  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled');
+  document.body.classList.toggle('light-theme', isLightTheme);
 }
-
-
  
 function openEditTaskModal(task) {
   // Set task details in modal inputs 
@@ -282,19 +282,21 @@ function openEditTaskModal(task) {
        refreshTasksUI();
   })
 
-  saveTaskChangesBtn.addEventListener('click', () => {saveTaskChanges(task.id); elements.newTaskModalWindow.style.display = 'none'})
+  saveTaskChangesBtn.addEventListener('click', () => {
+    saveTaskChanges(task.id); 
+    elements.editTaskModalWindow.style.display = 'none';
+    elements.newTaskModalWindow.style.display = 'none';
+  })
 
 
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
 }
 
 function saveTaskChanges(taskId) {
-  // Get new user inputs
-  let newTitle = elements.editTaskTitleInput.value;
 
   // Create an object with the updated task details
   const updatedTask = {
-    title: newTitle,
+    title: elements.editTaskTitleInput.value,
     description: elements.editTaskDescInput.value, // Use editTaskDescInput instead of descInput
     status: elements.editSelectStatus.value, // Use editSelectStatus instead of selectStatus
     board: activeBoard      
@@ -302,6 +304,7 @@ function saveTaskChanges(taskId) {
 
   // Update task using a helper function
   patchTask(taskId, updatedTask);
+  
 
   // Close the modal and refresh the UI to reflect the changes
   elements.editTaskModalWindow.style.display = 'none'; // Close the modal
@@ -324,5 +327,6 @@ function init() {
   document.body.classList.toggle('light-theme', isLightTheme);
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
+
 
 
