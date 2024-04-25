@@ -5,7 +5,7 @@
  - CSS
  - JavaScript
 # Loom Video Link: 
-# Presentation slides link: 
+# Presentation slides link: https://docs.google.com/presentation/d/1TvbKJad8dSNPUp77SVUKH0vnjHm0OeveovIz_7HYeGQ/edit#slide=id.g2cf3fa5ab6c_0_107
 
 ## Overview
 For this project, we had to create a task board management application. We had to fix bugs on the provided starter code and also add our coded solutions to ensure the applications functions fully.
