@@ -4,7 +4,7 @@
  - HTML
  - CSS
  - JavaScript
-# Loom Video Link: 
+# Loom Video Link: https://www.loom.com/share/25521c6756494cddadfc511287ec2284
 # Presentation slides link: https://docs.google.com/presentation/d/1TvbKJad8dSNPUp77SVUKH0vnjHm0OeveovIz_7HYeGQ/edit#slide=id.g2cf3fa5ab6c_0_107
 
 ## Overview
