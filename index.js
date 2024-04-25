@@ -258,6 +258,7 @@ elements.showSideBarBtn.addEventListener('click', () => toggleSidebar(true));
   const isLightTheme = elements.themeSwitch.checked;
   localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled');
   document.body.classList.toggle('light-theme', isLightTheme);
+  document.getElementById("logo").setAttribute("src", isLightTheme ? "./assets/logo-light.svg" : "./assets/logo-dark.svg");
 }
  
 function openEditTaskModal(task) {
